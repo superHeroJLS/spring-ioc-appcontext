@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 实例化JavaBean配置 -->
+	<bean id="userService" class="com.itranswarp.learnjava.service.UserService">
+		<!-- 注入JavaBean配置 -->
+		<property name="mailService" ref="mailService" />
+	</bean>
+
+	<!-- 实例化JavaBean配置 -->
+	<bean id="mailService" class="com.itranswarp.learnjava.service.MailService" />
+	
+</beans>
