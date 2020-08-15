@@ -3,13 +3,17 @@ package com.springioc;
 import java.time.ZoneId;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 
+import com.springioc.service.AppService;
+import com.springioc.service.MailService;
 import com.springioc.service.User;
 import com.springioc.service.UserService;
 import com.springioc.service.Validators;
@@ -21,7 +25,25 @@ import com.springioc.service.Validators;
  */
 @Configuration
 @ComponentScan // 默认basePackage: AppConfig所在包和子包
+@PropertySource("app.properties") // 读取classpath的app.properties文件
 public class AppConfig {
+    
+    // "${app.zone}"表示读取key为app.zone的value（这个只是app.properties定义的），如果key不存在，就使用默认值Z。
+    @Value("${app.zone:Z}") 
+    String zoneId;
+    
+    @Bean("asia")
+    ZoneId createZoneId() {
+        return ZoneId.of(zoneId);
+    }
+    
+    // @Value也可以直接加到参数上
+    @Bean("direcAsia")
+    ZoneId createZoneId(@Value("${app.zone:Z}") String zoneId) {
+        return ZoneId.of(zoneId);
+    }
+    
+    
     
     /*
      * 有些时候，我们需要对一种类型的Bean创建多个实例。例如，同时连接多个数据库，就必须创建多个DataSource实例。
@@ -48,6 +70,14 @@ public class AppConfig {
         
         Validators vs = context.getBean(Validators.class);
         vs.validate("bob@example.com", "password", "bob");
+        
+        AppService appService = context.getBean(AppService.class);
+        System.out.println(appService.logo);
+        System.out.println(appService.prop);
+        
+        System.out.println("---------------------------------------");
+        MailService mailService = context.getBean(MailService.class);
+        System.out.println("smtp host is: " + mailService.smtpHost);
     
     }
 }

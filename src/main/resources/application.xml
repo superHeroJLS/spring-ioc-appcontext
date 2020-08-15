@@ -11,6 +11,6 @@
 	</bean>
 
 	<!-- 实例化JavaBean配置 -->
-	<bean id="mailService" class="com.springioc.service.MailService" />
+	<bean id="mailService" class="com.springioc.service.MailService" init-method="initMethod"/>
 	
 </beans>

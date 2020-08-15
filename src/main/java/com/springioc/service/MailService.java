@@ -9,6 +9,7 @@ import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -17,9 +18,16 @@ import org.springframework.stereotype.Component;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class MailService {
     
+    // 注入beanFactory
+    @Autowired
+    private ZoneIdFactoryBean zoneIdFactory;
+    
     @Autowired(required = false)
     @Qualifier("z") // 指定注入名称为 z 的ZoneId
 	private ZoneId zoneId = ZoneId.systemDefault();
+    
+    @Value("#{smtpConfig.host}")
+    public String smtpHost;
 
 	public void setZoneId(ZoneId zoneId) {
 		this.zoneId = zoneId;
@@ -50,11 +58,18 @@ public class MailService {
 	 */
 	@PostConstruct // 在Bean初始化之后被调用
     public void init() {
-        System.out.println("Init mail service with zoneId = " + this.zoneId);
+        System.out.println("Init mail service with zoneId = " + this.zoneId + " by @PostConstruct");
     }
 
     @PreDestroy // 在Bean销毁前被调用
     public void shutdown() {
         System.out.println("Shutdown mail service");
+    }
+    
+    /**
+     * 这是一个有xml文件中指定的init-method，这个方法的执行顺序在@PostConstruct之后
+     */
+    public void initMethod() {
+        System.out.println("Init mail service with zoneId = " + this.zoneId + " by init-method");
     }
 }
