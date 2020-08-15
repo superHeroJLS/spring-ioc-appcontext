@@ -1,9 +1,10 @@
-package com.itranswarp.learnjava;
+package com.springioc;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.itranswarp.learnjava.service.User;
-import com.itranswarp.learnjava.service.UserService;
+
+import com.springioc.service.User;
+import com.springioc.service.UserService;
 
 /**
  * 读取在application.xml文件中配置的JavaBean（包括需要实例化和注入的JavaBean）

@@ -1,4 +1,4 @@
-package com.itranswarp.learnjava.service;
+package com.springioc.service;
 
 public class User {
 

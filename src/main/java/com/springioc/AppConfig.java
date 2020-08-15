@@ -1,12 +1,12 @@
-package com.itranswarp.learnjava;
+package com.springioc;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import com.itranswarp.learnjava.service.User;
-import com.itranswarp.learnjava.service.UserService;
+import com.springioc.service.User;
+import com.springioc.service.UserService;
 
 /**
  * 读取使用Annotation配置的JavaBean（包括需要实例化和注入的JavaBean）
