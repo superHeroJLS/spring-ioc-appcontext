@@ -33,5 +33,11 @@
 			<artifactId>javax.annotation-api</artifactId>
 			<version>1.3.2</version>
 		</dependency>
+		<!-- 自动引入AspectJ，使用AspectJ实现AOP比较方便，因为它的定义比较简单 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-aspects</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
 	</dependencies>
 </project>
